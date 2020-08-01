@@ -7,17 +7,43 @@
 
     <script src="assets/tfjs.js"></script>
     <script src="assets/facemesh.js"></script>
-    <link rel="stylesheet" href="assets/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.6.3/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/main.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/blazeface"></script>
 
 </head>
 <body>
 
-    <p><button onclick="start()">start</button></p>
-    <div>
-        <video id='input' width="320" height="240" autoplay muted playsinline style="border:solid 1px black;box-sizing:content-box;display:inline-block;"></video><span style="position:relative;display:inline-block;"><span id='loadingicon' class="fa fa-spinner fa-spin" style="position:absolute;font-size:100px;margin:70px 110px;display:none;"></span><canvas id='output' width="320" height="240" style="border:solid 1px black;box-sizing:content-box;"></canvas></span>
-    </div>
+    <section class="padding-top-5">
+        <div>
+            
+            <video id='input' width="320" height="240" autoplay muted playsinline class="disp" style="display:inline-block;"></video>
 
-    <script src="index.js"></script>
+            <span style="position:relative;display:inline-block;">
+                <span id='loadingicon' class="fa fa-spinner fa-spin spin-anim"></span>
+                <canvas id='output' width="320" height="240" class="disp"></canvas>
+            </span>
 
+            <span style="position:relative;display:inline-block;">
+                <span id='loadingicon2' class="fa fa-spinner fa-spin spin-anim"></span>
+                <canvas id='output2' width="320" height="240" class="disp"></canvas>
+            </span>
+
+            <!-- video id='input' width="320" height="240" autoplay muted playsinline class="disp" style="display:inline-block;"></video -->
+
+        </div>
+
+        <p>
+            <button onclick="start()">Initialize</button>
+        </p>
+        <p>
+            <button onclick="__fn()">Register Face</button>   
+            <button onclick="__fn()">Start Recognition</button>
+        </p>
+
+    </section>
+
+    <script src="index.js"></script>        
 </body>
 </html>

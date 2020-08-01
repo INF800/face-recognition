@@ -1,0 +1,21 @@
+section{
+    text-align: center;
+    width: 80vw;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.padding-top-5{
+    padding-top: 5%;
+}
+
+.spin-anim{
+    position:absolute;
+    font-size:100px;
+    margin:70px 110px;
+    display:none;
+}
+
+.disp{
+    border:solid 1px black;box-sizing:content-box;
+}
