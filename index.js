@@ -10,9 +10,6 @@ async function setupCamera(videoElement) {
     });
 }
 
-
-
-
 var loaded = false  
 function startRender(input, output, output2, model) {
     const ctx = output.getContext("2d");
@@ -34,42 +31,7 @@ function startRender(input, output, output2, model) {
                 loaded = true
             }
 
-            var cheekLen = face.annotations.leftCheek[0][0] - face.annotations.rightCheek[0][0]
-            var bboxHeight =  cheekLen * 3
-            var bboxWidth  =  cheekLen * 3    
-
-            var grad= ctx2.createLinearGradient(50, 50, 150, 150);
-            grad.addColorStop(0, "#00ff6a");
-            grad.addColorStop(1, "#4fc7ff");
-            ctx2.strokeStyle = grad;
-
-            /*ctx2.strokeRect(
-            face.annotations.noseTip[0][0] - (bboxWidth/2),
-            face.annotations.noseTip[0][1] - (bboxHeight/2),
-            bboxWidth, bboxHeight);
-            */
-            var tlx = face.annotations.noseTip[0][0] - (bboxWidth/2)
-            var tly = face.annotations.noseTip[0][1] - (bboxHeight/2)
-            
-            ctx2.moveTo(tlx + (bboxWidth/3), tly);
-            ctx2.lineTo(tlx, tly);
-            ctx2.lineTo(tlx, tly + (bboxHeight/3));
-
-            ctx2.moveTo(tlx, tly + (2*bboxWidth/3));
-            ctx2.lineTo(tlx, tly + bboxWidth);
-            ctx2.lineTo(tlx + (bboxWidth/3), tly + bboxWidth);
-
-            ctx2.moveTo(tlx + (2*bboxWidth/3), tly);
-            ctx2.lineTo(tlx + bboxWidth, tly);
-            ctx2.lineTo(tlx + bboxWidth, tly + (bboxHeight/3));
-
-            ctx2.moveTo(tlx + bboxWidth, tly + (2*bboxHeight/3));
-            ctx2.lineTo(tlx + bboxWidth, tly + bboxHeight);
-            ctx2.lineTo(tlx + bboxWidth - (bboxWidth/3), tly + bboxHeight);
-
-            ctx2.stroke();
-            
-
+            bbox(face, ctx2);
 
             face.scaledMesh.forEach(xy => {
                 ctx.beginPath();
