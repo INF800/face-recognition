@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prototype</title>
+
+    <script src="assets/tfjs.js"></script>
+    <script src="assets/facemesh.js"></script>
+    <link rel="stylesheet" href="assets/all.min.css">
+
+</head>
+<body>
+
+    <p><button onclick="start()">start</button></p>
+    <div>
+        <video id='input' width="320" height="240" autoplay muted playsinline style="border:solid 1px black;box-sizing:content-box;display:inline-block;"></video><span style="position:relative;display:inline-block;"><span id='loadingicon' class="fa fa-spinner fa-spin" style="position:absolute;font-size:100px;margin:70px 110px;display:none;"></span><canvas id='output' width="320" height="240" style="border:solid 1px black;box-sizing:content-box;"></canvas></span>
+    </div>
+
+    <script src="index.js"></script>
+
+</body>
+</html>
