@@ -1,3 +1,24 @@
+var AClicked = false
+var BClicked = false
+var CClicked = false
+document.getElementById('class-a').addEventListener('click', () => { AClicked = true}); //addExample(0, bboxImg, net));
+document.getElementById('class-b').addEventListener('click', () => { BClicked = true}); //addExample(1, bboxImg, net));
+document.getElementById('class-c').addEventListener('click', () => { CClicked = true}); //addExample(2, bboxImg, net));
+function addExampleHandler(bboxImg, net){
+    if (AClicked == true){
+        addExample(0, bboxImg, net)
+        AClicked = false
+
+    } else if (BClicked === true){
+        addExample(1, bboxImg, net)
+        BClicked = false
+
+    } else if (CClicked === true){
+        addExample(3, bboxImg, net)
+        CClicked = false
+    }
+}
+
 async function setupCamera(videoElement) {
     const constraints = {video: {width: 320,height: 240}, audio: false};
     const stream = await navigator.mediaDevices.getUserMedia(constraints);
@@ -11,13 +32,13 @@ async function setupCamera(videoElement) {
 }
 
 var loaded = false  
-function startRender(input, output, output2, model) {
+function startRender(input, output, output2, faceMeshModel, net) {
     const ctx = output.getContext("2d");
     const ctx2 = output2.getContext("2d");
-    
+    // loop
     async function renderFrame() {
         requestAnimationFrame(renderFrame);
-        const faces = await model.estimateFaces(input, false, false);
+        const faces = await faceMeshModel.estimateFaces(input, false, false);
         ctx.clearRect(0, 0, output.width, output.height);
         ctx2.clearRect(0, 0, output2.width, output2.height);
 
@@ -31,8 +52,14 @@ function startRender(input, output, output2, model) {
                 loaded = true
             }
 
-            bbox(face, ctx2);
-
+            bboxImg = bbox(face, ctx2, net);
+            // console.log(tf.browser.fromPixels(bboxImg))
+            // put on top left of canvas2:
+            // ctx2.putImageData(bboxImg, -2, -2);
+            if (bboxImg != null){
+                addExampleHandler(bboxImg, net)
+            }
+            
             face.scaledMesh.forEach(xy => {
                 ctx.beginPath();
                 ctx.arc(xy[0], xy[1], 1, 0, 2 * Math.PI);
@@ -49,19 +76,28 @@ function loading(onoff, id) {
     document.getElementById(id).style.display = onoff ? "inline" : "none";
 }
 
+function hideInit(){
+    document.getElementById('init').style.display = 'none'
+    document.getElementById('reg').style.display = 'block'
+}
+
 async function start() {
-    const input = document.getElementById("input");
-    const output = document.getElementById("output");
-    const output2 = document.getElementById("output2");
+    const input         = document.getElementById("input");
+    const output        = document.getElementById("output");
+    const output2       = document.getElementById("output2");
     
     loading(true, "loadingicon");
     loading(true, "loadingicon2");
     
     await setupCamera(input);
-    const model = await facemesh.load({ maxFaces: 1 });
-    startRender(input, output, output2, model);
+    
+    const faceMeshModel = await facemesh.load({ maxFaces: 1 });
+    const net           = await mobilenet.load();
+
+    startRender(input, output, output2, faceMeshModel, net);
 
     loading(false, "loadingicon");
     loading(false, "loadingicon2");
+    hideInit()
 
 }
