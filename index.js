@@ -4,17 +4,17 @@ var CClicked = false
 document.getElementById('class-a').addEventListener('click', () => { AClicked = true}); //addExample(0, bboxImg, net));
 document.getElementById('class-b').addEventListener('click', () => { BClicked = true}); //addExample(1, bboxImg, net));
 document.getElementById('class-c').addEventListener('click', () => { CClicked = true}); //addExample(2, bboxImg, net));
-function addExampleHandler(bboxImg, net){
+async function addExampleHandler(bboxImg, net){
     if (AClicked == true){
-        addExample(0, bboxImg, net)
+        await addExample(0, bboxImg, net)
         AClicked = false
 
     } else if (BClicked === true){
-        addExample(1, bboxImg, net)
+        await addExample(1, bboxImg, net)
         BClicked = false
 
     } else if (CClicked === true){
-        addExample(3, bboxImg, net)
+        await addExample(2, bboxImg, net)
         CClicked = false
     }
 }
@@ -37,6 +37,7 @@ function startRender(input, output, output2, faceMeshModel, net) {
     const ctx2 = output2.getContext("2d");
     // loop
     async function renderFrame() {
+        //await sleep(16) // It does the trick but blinky!
         requestAnimationFrame(renderFrame);
         const faces = await faceMeshModel.estimateFaces(input, false, false);
         ctx.clearRect(0, 0, output.width, output.height);
@@ -45,26 +46,25 @@ function startRender(input, output, output2, faceMeshModel, net) {
         ctx2.beginPath();
         ctx2.drawImage(input, 0, 0, output2.width, output2.height)
 
-        faces.forEach(face => {
+        faces.forEach(async face => {
+
+
+            face.scaledMesh.forEach(xy => {
+                ctx.beginPath();
+                ctx.arc(xy[0], xy[1], 1, 0, 2 * Math.PI);
+                ctx.fill();
+            });
 
             if (!loaded){
                 console.log(face)
                 loaded = true
             }
 
-            bboxImg = bbox(face, ctx2, net);
+            var bboxImg = await bbox(face, ctx2, net);
             // console.log(tf.browser.fromPixels(bboxImg))
             // put on top left of canvas2:
             // ctx2.putImageData(bboxImg, -2, -2);
-            if (bboxImg != null){
-                addExampleHandler(bboxImg, net)
-            }
-            
-            face.scaledMesh.forEach(xy => {
-                ctx.beginPath();
-                ctx.arc(xy[0], xy[1], 1, 0, 2 * Math.PI);
-                ctx.fill();
-            });
+            await addExampleHandler(bboxImg, net)
 
         });
     }

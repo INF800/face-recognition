@@ -38,11 +38,17 @@
         <p id='init'>
             <button onclick="start()">Initialize</button>
         </p>
-        <p id='reg' style="display: none;">
-            <button id="class-a">Add Person A</button>
-            <button id="class-b">Add Person B</button>
-            <button id="class-c">Add Person C</button>
-        </p>
+        <div id='reg' style="display: none;">
+            <button id="class-a">Register Person A</button>
+            <button id="class-b">Register Person B</button>
+            <button id="class-c">Register Person C</button>
+            <p>
+                When bounding-box is on person A/B/C click respective "register person" button multiple
+                times (10-20) with different poses of face to add more instances (gives high accuracy)
+                <br>
+                <b>Note: </b> Currently NOT using powerful backend in this prototype. Instead simple naive model is being used. 
+            </p>
+        </div>
 
     </section>
 
