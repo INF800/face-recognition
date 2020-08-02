@@ -10,7 +10,8 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.6.3/css/all.min.css">
     <link rel="stylesheet" href="assets/css/main.css">
 
-    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/blazeface"></script>
+    <script src="https://unpkg.com/@tensorflow-models/mobilenet"></script>
+    <script src="https://unpkg.com/@tensorflow-models/knn-classifier"></script>
 
 </head>
 <body>
@@ -34,16 +35,19 @@
 
         </div>
 
-        <p>
+        <p id='init'>
             <button onclick="start()">Initialize</button>
         </p>
-        <p>
-            <button onclick="__fn()">Register Face</button>   
-            <button onclick="__fn()">Start Recognition</button>
+        <p id='reg' style="display: none;">
+            <button id="class-a">Add Person A</button>
+            <button id="class-b">Add Person B</button>
+            <button id="class-c">Add Person C</button>
         </p>
 
     </section>
 
+    <script src="assets/modules/knn-transfer-learning.js"></script>
+    <script src="assets/modules/bbox.js"></script>
     <script src="index.js"></script>        
 </body>
 </html>
