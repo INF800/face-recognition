@@ -82,6 +82,8 @@ function hideInit(){
 }
 
 async function start() {
+    document.getElementById('init-desc').textContent = 'Fetching resources from internet. Takes 0.5-1 min based on your internet connection...';
+    
     const input         = document.getElementById("input");
     const output        = document.getElementById("output");
     const output2       = document.getElementById("output2");
