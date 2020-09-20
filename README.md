@@ -2,10 +2,12 @@
 
 ![demo](docs/teachable-machine.full.gif)
 
-**Models used**
+**Models used for client-side face detecttion and recognition**
 
-- Facemesh
-- KNN
-- Mobilenet
+- TFJS Facemesh Model for Face recognition
+- Mobilenet for feature extraction
+- KNN For Transfer Learning on extracted feature vector
 
-Live demo [here](https://rakesh4real.github.io/face-recognition/)
+### Live demo  
+
+[Click here](https://rakesh4real.github.io/face-recognition/) to see live demo
