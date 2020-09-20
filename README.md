@@ -4,7 +4,7 @@
 
 **Models used for client-side face detecttion and recognition**
 
-- TFJS Facemesh Model for Face recognition
+- TFJS Facemesh model for face recognition
 - Mobilenet for feature extraction
 - KNN For Transfer Learning on extracted feature vector
 
