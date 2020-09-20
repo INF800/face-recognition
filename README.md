@@ -1,6 +1,8 @@
 # Teachable Machine
 
-Models used
+![demo](docs/teachable-machine.full.gif)
+
+**Models used**
 
 - Facemesh
 - KNN
